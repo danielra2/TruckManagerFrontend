@@ -25,16 +25,23 @@ export default function LoginModal({ onLoginSuccess }) {
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content" style={{ textAlign: 'center' }}>
-        <div style={{ display: 'inline-flex', padding: '1rem', background: '#0f172a', borderRadius: '50%', marginBottom: '1rem' }}>
-          <Lock size={32} color="#3b82f6" />
+      <div className="modal-content" style={{ textAlign: 'center', maxWidth: '380px' }}>
+        <div style={{
+          display: 'inline-flex',
+          padding: '1rem',
+          background: 'var(--bg-inner)',
+          borderRadius: '50%',
+          marginBottom: '1rem',
+          border: '1px solid var(--border)'
+        }}>
+          <Lock size={28} color="#c48b52" />
         </div>
-        <h2 style={{ marginBottom: '0.5rem' }}>Acces TruckManager</h2>
-        <p style={{ color: '#94a3b8', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
-          Introdu parola de administrator pentru a accesa flota.
+        <h2 style={{ marginBottom: '0.4rem', color: '#edd8c4' }}>Autentificare</h2>
+        <p style={{ color: '#c4b5a5', fontSize: '0.88rem', marginBottom: '1.4rem' }}>
+          Introdu parola de acces pentru a gestiona flota.
         </p>
 
-        {error && <div style={{ color: '#ef4444', marginBottom: '1rem', fontSize: '0.9rem' }}>{error}</div>}
+        {error && <div style={{ color: '#e06c53', marginBottom: '1rem', fontSize: '0.85rem' }}>{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -47,7 +54,7 @@ export default function LoginModal({ onLoginSuccess }) {
               autoFocus
             />
           </div>
-          <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }} disabled={loading}>
+          <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '0.8rem' }} disabled={loading}>
             {loading ? 'Se verifică...' : 'Deblochează'}
           </button>
         </form>
