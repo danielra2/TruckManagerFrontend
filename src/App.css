@@ -1,3 +1,7 @@
+/* =========================================================
+   TRUCK MANAGER — STILURI DESKTOP (100% NESCHIMBATE)
+   ========================================================= */
+
 :root {
   /* Backgrounds: Maro cald, profund, cu contrast ridicat */
   --bg-main: #140d0a;
@@ -122,7 +126,7 @@ body {
   }
 }
 
-/* Panou Statistici Compact & Orizontal pe 1 Rând (5 Coloane) */
+/* Panou Statistici Compact & Orizontal pe 1 Rând (5 Coloane pe Desktop) */
 .stats-container {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -213,7 +217,7 @@ body {
 }
 .search-bar::placeholder { color: var(--text-muted); }
 
-/* Grid camioane */
+/* Grid camioane (Desktop) */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
@@ -368,7 +372,7 @@ body {
   box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
-/* Tab Buttons în Nav */
+/* Tab Buttons în Nav (Desktop) */
 .tab-buttons {
   display: flex;
   gap: 0.4rem;
@@ -402,7 +406,7 @@ body {
   border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
-/* Tahograf Summary Grid */
+/* Tahograf Summary Grid (Desktop) */
 .tacho-summary-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -441,7 +445,7 @@ body {
 .stat-box-danger { border-color: rgba(255, 77, 77, 0.3); }
 .stat-box-danger .stat-box-title, .stat-box-danger .stat-box-num { color: var(--danger); }
 
-/* Tabel Tahograf */
+/* Tabel Tahograf (Desktop) */
 .tacho-table-wrapper {
   overflow-x: auto;
   border-radius: 14px;
@@ -477,596 +481,314 @@ body {
   background: rgba(245, 158, 11, 0.04);
 }
 
+
 /* ==========================================================================
-   RESPONSIVITATE — TABLETĂ & TELEFON
-   (Desktopul rămâne complet neschimbat; regulile de mai jos se aplică
-   doar sub pragurile indicate.)
+   RESPONSIVITATE MOBIL (MAX-WIDTH: 768px)
+   - Zero scroll stânga-dreapta
+   - Statistici organizate curat pe 2 coloane
+   - Tahograf transformat în carduri complete și lizibile
+   - Desktopul rămâne 100% neschimbat
    ========================================================================== */
 
-/* ---- Tabletă (≤1080px) ---- */
-@media (max-width: 1080px) {
+@media (max-width: 1080px) and (min-width: 769px) {
   .stats-container {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  .tacho-summary-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ---- Telefon (≤680px) ---- */
-@media (max-width: 680px) {
-  .container {
-    padding: 1rem 0.75rem;
-  }
-
-  /* Header & navigare: stivuite curat, fără elemente tăiate */
-  .navbar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.85rem;
-    margin-bottom: 1.2rem;
-  }
-
-  .nav-brand {
-    justify-content: center;
-  }
-
-  .nav-brand-text {
-    display: none;
-  }
-
-  .tab-buttons {
-    width: 100%;
-    justify-content: center;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .nav-actions {
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .btn {
-    flex: 1 1 auto;
-    min-height: 44px;
-    padding: 0.6rem 0.95rem;
-    font-size: 0.85rem;
-  }
-
-  /* Panou statistici: derulare orizontală elegantă */
-  .stats-container {
-    display: flex;
-    overflow-x: auto;
-    padding-bottom: 0.6rem;
-    gap: 0.65rem;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-  .stats-container::-webkit-scrollbar {
-    height: 4px;
-  }
-  .stats-container::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 4px;
-  }
-  .category-card {
-    min-width: 185px;
-    flex: 0 0 190px;
-    scroll-snap-align: start;
-  }
-
-  /* Bara de căutare */
-  .search-bar {
-    padding: 0.8rem 1rem;
-    font-size: 16px; /* previne zoom automat pe iOS Safari */
-    margin-bottom: 1.2rem;
-  }
-
-  /* Grid camioane: 1 coloană */
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .card {
-    padding: 1rem;
-    border-radius: 14px;
-  }
-
-  .card-header {
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .license-badge {
-    font-size: 1.05rem;
-    padding: 0.3rem 0.65rem;
-  }
-
-  /* Documente: nu se mai taie pe ecrane înguste */
-  .doc-item {
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    padding: 0.6rem 0.75rem;
-  }
-
-  .doc-name {
-    font-size: 0.85rem;
-  }
-
-  /* Tabel tahograf: scroll orizontal fluid, text nu se strivește */
-  .tacho-summary-grid {
-    grid-template-columns: 1fr;
-    gap: 0.6rem;
-  }
-
-  .stat-box {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 0.85rem 1rem;
-  }
-
-  .stat-box-num {
-    font-size: 1.4rem;
-  }
-
-  .tacho-table {
-    min-width: 560px;
-  }
-
-  .tacho-table th,
-  .tacho-table td {
-    padding: 0.65rem 0.75rem;
-    font-size: 0.85rem;
-    white-space: nowrap;
-  }
-
-  /* Modale: se comportă ca un bottom-sheet, ușor de folosit cu degetul */
-  .modal-overlay {
-    align-items: flex-end;
-    padding: 0;
-  }
-
-  .modal-content {
-    max-width: 100%;
-    max-height: 92vh;
-    border-radius: 20px 20px 0 0;
-    padding: 1.35rem;
-  }
-
-  .form-group input {
-    font-size: 16px; /* previne zoom automat pe iOS Safari */
-    min-height: 44px;
-  }
-}
-
-/* ---- Telefoane foarte mici (≤400px) ---- */
-@media (max-width: 400px) {
-  .btn {
-    flex: 1 1 100%;
-  }
-
-  .license-badge {
-    font-size: 0.95rem;
-  }
-
-  .category-card {
-    min-width: 165px;
-    flex-basis: 170px;
-  }
-}
-/* ==========================================
-   MOBILE RESPONSIVE OVERRIDES (max-width: 768px)
-   Păstrează desktop-ul 100% neschimbat
-   ========================================== */
-
-@media (max-width: 768px) {
-  /* Layout general & container */
-  body, html {
-    overflow-x: hidden;
-  }
-
-  .app-container, 
-  .main-container, 
-  .container {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 12px 16px !important;
-    box-sizing: border-box !important;
-  }
-
-  /* Header & Bara de navigare */
-  header, 
-  .navbar, 
-  .header-content {
-    flex-direction: column !important;
-    align-items: stretch !important;
-    gap: 12px !important;
-    padding: 12px 16px !important;
-    height: auto !important;
-  }
-
-  .navbar .nav-actions,
-  .header-actions {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: space-between !important;
-    width: 100% !important;
-    gap: 8px !important;
-  }
-
-  /* Hero Section */
-  .hero-section {
-    flex-direction: column-reverse !important;
-    text-align: center !important;
-    padding: 20px 10px !important;
-    gap: 16px !important;
-  }
-
-  .hero-section img,
-  .hero-image {
-    max-width: 100% !important;
-    height: auto !important;
-  }
-
-  /* Filtre, Căutare & Butoane de acțiune */
-  .controls-bar,
-  .search-bar,
-  .filter-container {
-    flex-direction: column !important;
-    width: 100% !important;
-    gap: 10px !important;
-  }
-
-  .controls-bar input,
-  .controls-bar select,
-  .controls-bar button,
-  .search-bar input {
-    width: 100% !important;
-    min-height: 44px !important; /* Dimensiune optimă pentru touch */
-    box-sizing: border-box !important;
-  }
-
-  /* Grid de Camioane / Liste */
-  .truck-grid,
-  .cards-container,
-  .grid-container {
-    grid-template-columns: 1fr !important; /* 1 singură coloană pe verticală */
-    gap: 16px !important;
-  }
-
-  /* Card Camion (TruckCard) */
-  .truck-card {
-    width: 100% !important;
-    box-sizing: border-box !important;
-    padding: 14px !important;
-  }
-
-  .truck-card-header {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 8px !important;
-  }
-
-  .truck-card-actions {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)) !important;
-    gap: 8px !important;
-    width: 100% !important;
-    margin-top: 12px !important;
-  }
-
-  .truck-card-actions button {
-    width: 100% !important;
-    justify-content: center !important;
-  }
-
-  /* Document Status & Badges */
-  .document-item,
-  .status-row {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 4px !important;
-    padding: 8px 0 !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  /* Modale (LoginModal, AddTruckModal, EditTruckModal, etc.) */
-  .modal-overlay {
-    padding: 10px !important;
-    align-items: flex-end !important; /* Stil bottom-sheet sau centrat complet */
-  }
-
-  .modal-content,
-  .modal-dialog {
-    width: 100% !important;
-    max-width: 100% !important;
-    max-height: 90vh !important;
-    overflow-y: auto !important;
-    border-radius: 16px 16px 0 0 !important;
-    padding: 18px !important;
-    box-sizing: border-box !important;
-  }
-
-  .modal-actions,
-  .form-actions {
-    flex-direction: column-reverse !important;
-    gap: 8px !important;
-  }
-
-  .modal-actions button,
-  .form-actions button {
-    width: 100% !important;
-    min-height: 44px !important;
-  }
-}
-/* =========================================================
-   MOBILE FIRST OPTIMIZATION (MAX-WIDTH: 768px)
-   - Zero horizontal scroll
-   - Compact dashboard layout
-   - Desktop remains 100% UNCHANGED
-   ========================================================= */
-
-@media (max-width: 768px) {
-  /* 1. Blocare totală a oricărui scroll orizontal */
+  /* 1. Blocare orizontală totală & lățime 100% */
   html, body {
     overflow-x: hidden !important;
     width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
   }
 
-  *, *::before, *::after {
-    box-sizing: border-box !important;
-    max-width: 100% !important;
-  }
-
-  /* 2. Container Principal & Spacing compact */
-  .app,
-  .app-container,
-  .main-container,
   .container {
     width: 100% !important;
-    padding: 10px 12px !important;
-    margin: 0 auto !important;
-  }
-
-  /* 3. Header / Navigație compactă */
-  header,
-  .navbar,
-  .top-bar {
-    padding: 8px 12px !important;
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    gap: 8px !important;
-  }
-
-  .logo, .navbar-brand {
-    font-size: 1.1rem !important;
-  }
-
-  .nav-buttons,
-  .header-actions {
-    display: flex !important;
-    gap: 6px !important;
-  }
-
-  .nav-buttons button,
-  .header-actions button {
-    padding: 6px 10px !important;
-    font-size: 0.82rem !important;
-  }
-
-  /* 4. Reducerea secțiunii Hero (să nu ocupe inutil ecranul pe mobil) */
-  .hero-section,
-  .hero-banner {
-    padding: 12px 8px !important;
-    margin-bottom: 12px !important;
-  }
-
-  .hero-section h1,
-  .hero-banner h1 {
-    font-size: 1.3rem !important;
-    margin-bottom: 6px !important;
-  }
-
-  .hero-section p,
-  .hero-banner p {
-    font-size: 0.85rem !important;
-    display: none !important; /* Ascunde textul lung introductiv pentru a aduce conținutul util sus */
-  }
-
-  .hero-section img,
-  .hero-image {
-    max-height: 120px !important;
-    object-fit: contain !important;
-    margin: 8px auto !important;
-  }
-
-  /* 5. Bara de Filtre & Căutare - pe un singur nivel */
-  .controls-bar,
-  .search-filter-section,
-  .toolbar {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 8px !important;
-    margin-bottom: 14px !important;
-    width: 100% !important;
-  }
-
-  .search-input,
-  .filter-select,
-  .controls-bar input,
-  .controls-bar select {
-    width: 100% !important;
-    height: 40px !important;
-    font-size: 0.9rem !important;
-    padding: 6px 10px !important;
-  }
-
-  .controls-bar button,
-  .add-truck-btn {
-    width: 100% !important;
-    height: 40px !important;
-    font-weight: bold !important;
-    font-size: 0.9rem !important;
-  }
-
-  /* 6. Gridul de Camioane - Coloană Unică */
-  .truck-grid,
-  .cards-grid,
-  .truck-list {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 12px !important;
-    width: 100% !important;
-    padding: 0 !important;
-  }
-
-  /* 7. Cardul Camionului (TruckCard) - Regândit tip Mobile App Tile */
-  .truck-card {
-    width: 100% !important;
-    padding: 12px !important;
-    border-radius: 12px !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 10px !important;
-  }
-
-  /* Header Card Camion: Numar + Model */
-  .truck-card-header,
-  .card-top {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-    padding-bottom: 8px !important;
-  }
-
-  .truck-plate,
-  .license-plate {
-    font-size: 1.1rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.5px !important;
-  }
-
-  /* 8. Reorganizare Documente: Compact 2-Coloane Grid (în loc de rânduri lungi) */
-  .truck-documents-list,
-  .documents-container,
-  .truck-details-grid {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important; /* 2 coloane compacte */
-    gap: 6px !important;
-    width: 100% !important;
-    padding: 4px 0 !important;
-  }
-
-  .document-item,
-  .doc-row,
-  .status-badge-container {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    justify-content: center !important;
-    padding: 6px 8px !important;
-    border-radius: 6px !important;
-    background: rgba(255, 255, 255, 0.04) !important;
-    min-height: 48px !important;
-    gap: 2px !important;
-  }
-
-  .doc-title,
-  .doc-name {
-    font-size: 0.72rem !important;
-    text-transform: uppercase !important;
-    opacity: 0.8 !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-  }
-
-  .doc-date,
-  .doc-expiry {
-    font-size: 0.8rem !important;
-    font-weight: 600 !important;
-  }
-
-  .status-badge {
-    font-size: 0.7rem !important;
-    padding: 2px 6px !important;
-    border-radius: 4px !important;
-    margin-top: 2px !important;
-  }
-
-  /* 9. Butoane de Acțiuni pe Card (Editare, Tahograf, Ștergere) */
-  .truck-card-actions,
-  .card-buttons {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important; /* 3 butoane egale pe orizontală */
-    gap: 6px !important;
-    margin-top: 4px !important;
-    width: 100% !important;
-  }
-
-  .truck-card-actions button,
-  .card-buttons button {
-    padding: 8px 4px !important;
-    font-size: 0.78rem !important;
-    justify-content: center !important;
-    text-align: center !important;
-  }
-
-  /* 10. Modale & Formulare Optimizate pentru Telefon */
-  .modal-overlay {
-    padding: 0 !important;
-    align-items: flex-end !important; /* Apare curat ca un sheet de jos */
-  }
-
-  .modal-content,
-  .modal-dialog {
-    width: 100% !important;
     max-width: 100% !important;
-    max-height: 85vh !important;
-    overflow-y: auto !important;
-    border-radius: 16px 16px 0 0 !important;
-    padding: 16px !important;
+    padding: 0.85rem 0.65rem !important;
   }
 
-  .form-group {
-    margin-bottom: 10px !important;
+  /* 2. Header & Navigație */
+  .navbar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+    margin-bottom: 1rem !important;
+    padding-bottom: 0.75rem !important;
   }
 
-  .form-group label {
-    font-size: 0.82rem !important;
-    margin-bottom: 4px !important;
-  }
-
-  .form-group input,
-  .form-group select {
-    width: 100% !important;
-    height: 42px !important;
-    font-size: 0.95rem !important;
-  }
-
-  .modal-actions,
-  .form-actions {
+  .nav-brand {
     display: flex !important;
-    flex-direction: column-reverse !important;
-    gap: 8px !important;
-    margin-top: 14px !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
   }
 
-  .modal-actions button,
-  .form-actions button {
+  .nav-brand-icon {
+    padding: 0.45rem !important;
+  }
+
+  .tab-buttons {
+    display: flex !important;
+    flex: 1 !important;
     width: 100% !important;
-    height: 44px !important;
+    gap: 0.25rem !important;
+  }
+
+  .tab-btn {
+    flex: 1 !important;
+    text-align: center !important;
+    padding: 0.5rem 0.35rem !important;
+    font-size: 0.76rem !important;
+    white-space: nowrap !important;
+  }
+
+  .nav-actions {
+    display: flex !important;
+    width: 100% !important;
+    gap: 0.5rem !important;
+  }
+
+  .nav-actions .btn {
+    flex: 1 !important;
+    min-height: 42px !important;
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.82rem !important;
+  }
+
+  .nav-actions .btn-danger {
+    flex: 0 0 auto !important;
+    padding: 0.5rem 0.85rem !important;
+  }
+
+  /* 3. STATISTICI DE SUS (VGP, ITV, LIMIT V, T GRAFO, SEGURO)
+        FĂRĂ scroll orizontal! Așezate pe 2 coloane compacte. */
+  .stats-container {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+    overflow-x: visible !important;
+  }
+
+  .category-card {
+    min-width: 0 !important;
+    width: 100% !important;
+    padding: 0.55rem 0.45rem !important;
+    border-radius: 12px !important;
+  }
+
+  /* Al 5-lea card (SEGURO) ocupă toată lățimea pe rândul său */
+  .category-card:last-child {
+    grid-column: span 2 !important;
+  }
+
+  .category-header {
+    font-size: 0.75rem !important;
+    padding-bottom: 0.3rem !important;
+  }
+
+  .category-stats-row {
+    gap: 0.25rem !important;
+  }
+
+  .sub-stat {
+    padding: 0.35rem 0.1rem !important;
+    border-radius: 6px !important;
+  }
+
+  .sub-stat-label {
+    font-size: 0.58rem !important;
+  }
+
+  .sub-stat-value {
+    font-size: 1.05rem !important;
+  }
+
+  /* 4. Bara de căutare */
+  .search-bar {
+    padding: 0.75rem 1rem !important;
+    font-size: 16px !important;
+    border-radius: 12px !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* 5. Grid Camioane: 1 singură coloană curată */
+  .grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
+  }
+
+  .card {
+    padding: 0.95rem !important;
+    border-radius: 14px !important;
+  }
+
+  .card-header {
+    margin-bottom: 0.75rem !important;
+  }
+
+  .license-badge {
+    font-size: 1.05rem !important;
+    padding: 0.25rem 0.6rem !important;
+  }
+
+  .model-title {
+    font-size: 0.82rem !important;
+  }
+
+  .doc-list {
+    gap: 0.45rem !important;
+  }
+
+  .doc-item {
+    padding: 0.5rem 0.65rem !important;
+  }
+
+  .doc-name {
+    font-size: 0.82rem !important;
+  }
+
+  /* 6. TAHOGRAF: STATISTICI REZUMAT PE MOBIL */
+  .tacho-summary-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .stat-box {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 0.65rem 0.9rem !important;
+    border-radius: 12px !important;
+  }
+
+  .stat-box-title {
+    font-size: 0.75rem !important;
+  }
+
+  .stat-box-num {
+    font-size: 1.35rem !important;
+  }
+
+  /* 7. TAHOGRAF: TABEL TRANSFORMAT ÎN CARDURI (ZERO SCROLL ORIZONTAL) */
+  .tacho-table-wrapper {
+    overflow-x: visible !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .tacho-table {
+    min-width: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    border-collapse: separate !important;
+  }
+
+  .tacho-table thead {
+    display: none !important; /* Ascundem antetul rigid de tabel pe mobil */
+  }
+
+  .tacho-table tbody {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+  }
+
+  .tacho-row {
+    display: flex !important;
+    flex-direction: column !important;
+    background: linear-gradient(180deg, #241812 0%, #1c130e 100%) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 14px !important;
+    padding: 0.85rem 0.95rem !important;
+    gap: 0.55rem !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .tacho-row td {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 0 !important;
+    border: none !important;
+    font-size: 0.85rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Rândul 1: Număr înmatriculare */
+  .tacho-row td:nth-child(1) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    padding-bottom: 0.45rem !important;
+  }
+
+  /* Rândul 2: Șofer */
+  .tacho-row td:nth-child(2)::before {
+    content: "ȘOFER:";
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.4px;
+  }
+
+  /* Rândul 3: Data descărcare */
+  .tacho-row td:nth-child(3)::before {
+    content: "ULTIMA DESCĂRCARE:";
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.4px;
+  }
+
+  /* Rândul 4: Următoarea descărcare */
+  .tacho-row td:nth-child(4)::before {
+    content: "URMĂTOAREA:";
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.4px;
+  }
+
+  /* Rândul 5: Status */
+  .tacho-row td:nth-child(5)::before {
+    content: "STATUS:";
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.4px;
+  }
+
+  /* Rândul 6: Butoane Editează / Șterge */
+  .tacho-row td:nth-child(6) {
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    padding-top: 0.45rem !important;
+    justify-content: flex-end !important;
+  }
+
+  /* 8. Modale: bottom-sheet touch friendly */
+  .modal-overlay {
+    align-items: flex-end !important;
+    padding: 0 !important;
+  }
+
+  .modal-content {
+    max-width: 100% !important;
+    max-height: 92vh !important;
+    border-radius: 20px 20px 0 0 !important;
+    padding: 1.25rem 1rem !important;
+  }
+
+  .form-group input {
+    font-size: 16px !important;
+    min-height: 42px !important;
   }
 }
