@@ -660,3 +660,148 @@ body {
     flex-basis: 170px;
   }
 }
+/* ==========================================
+   MOBILE RESPONSIVE OVERRIDES (max-width: 768px)
+   Păstrează desktop-ul 100% neschimbat
+   ========================================== */
+
+@media (max-width: 768px) {
+  /* Layout general & container */
+  body, html {
+    overflow-x: hidden;
+  }
+
+  .app-container, 
+  .main-container, 
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 12px 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Header & Bara de navigare */
+  header, 
+  .navbar, 
+  .header-content {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+    padding: 12px 16px !important;
+    height: auto !important;
+  }
+
+  .navbar .nav-actions,
+  .header-actions {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    gap: 8px !important;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    flex-direction: column-reverse !important;
+    text-align: center !important;
+    padding: 20px 10px !important;
+    gap: 16px !important;
+  }
+
+  .hero-section img,
+  .hero-image {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Filtre, Căutare & Butoane de acțiune */
+  .controls-bar,
+  .search-bar,
+  .filter-container {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 10px !important;
+  }
+
+  .controls-bar input,
+  .controls-bar select,
+  .controls-bar button,
+  .search-bar input {
+    width: 100% !important;
+    min-height: 44px !important; /* Dimensiune optimă pentru touch */
+    box-sizing: border-box !important;
+  }
+
+  /* Grid de Camioane / Liste */
+  .truck-grid,
+  .cards-container,
+  .grid-container {
+    grid-template-columns: 1fr !important; /* 1 singură coloană pe verticală */
+    gap: 16px !important;
+  }
+
+  /* Card Camion (TruckCard) */
+  .truck-card {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 14px !important;
+  }
+
+  .truck-card-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+
+  .truck-card-actions {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)) !important;
+    gap: 8px !important;
+    width: 100% !important;
+    margin-top: 12px !important;
+  }
+
+  .truck-card-actions button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* Document Status & Badges */
+  .document-item,
+  .status-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+    padding: 8px 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Modale (LoginModal, AddTruckModal, EditTruckModal, etc.) */
+  .modal-overlay {
+    padding: 10px !important;
+    align-items: flex-end !important; /* Stil bottom-sheet sau centrat complet */
+  }
+
+  .modal-content,
+  .modal-dialog {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    border-radius: 16px 16px 0 0 !important;
+    padding: 18px !important;
+    box-sizing: border-box !important;
+  }
+
+  .modal-actions,
+  .form-actions {
+    flex-direction: column-reverse !important;
+    gap: 8px !important;
+  }
+
+  .modal-actions button,
+  .form-actions button {
+    width: 100% !important;
+    min-height: 44px !important;
+  }
+}
