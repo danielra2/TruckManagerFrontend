@@ -32,7 +32,7 @@ export default function EditTachoModal({ item, onClose, onUpdated }) {
       onUpdated();
       onClose();
     } catch (err) {
-      setError(err.response?.data?.message || 'Eroare la actualizare.');
+      setError(err.response?.data?.message || 'Error al actualizar el registro.');
     } finally {
       setLoading(false);
     }
@@ -41,18 +41,18 @@ export default function EditTachoModal({ item, onClose, onUpdated }) {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-          <h2 style={{ color: '#fde68a' }}>Editează Tahograf ({item.licensePlate})</h2>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+          <h2 style={{ color: '#fde68a', fontSize: '1.3rem' }}>Editar Tacógrafo ({item.licensePlate})</h2>
           <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#c4b5a5', cursor: 'pointer' }}>
             <X size={24} />
           </button>
         </div>
 
-        {error && <div style={{ color: '#ff6b6b', marginBottom: '1rem', fontSize: '0.9rem' }}>{error}</div>}
+        {error && <div style={{ color: '#ff6b6b', marginBottom: '1rem', fontSize: '0.88rem' }}>{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Număr Înmatriculare</label>
+            <label>Matrícula</label>
             <input
               value={form.licensePlate}
               onChange={(e) => setForm({ ...form, licensePlate: e.target.value })}
@@ -61,7 +61,7 @@ export default function EditTachoModal({ item, onClose, onUpdated }) {
           </div>
 
           <div className="form-group">
-            <label>Nume Șofer</label>
+            <label>Nombre del Conductor</label>
             <input
               value={form.driverName}
               onChange={(e) => setForm({ ...form, driverName: e.target.value })}
@@ -69,7 +69,7 @@ export default function EditTachoModal({ item, onClose, onUpdated }) {
           </div>
 
           <div className="form-group">
-            <label>Data Descărcare</label>
+            <label>Fecha de Descarga</label>
             <input
               type="date"
               value={form.lastDownloadDate}
@@ -79,7 +79,7 @@ export default function EditTachoModal({ item, onClose, onUpdated }) {
           </div>
 
           <div className="form-group">
-            <label>Următoarea Descărcare</label>
+            <label>Fecha de Próxima Descarga (Automático +28 días)</label>
             <input
               type="date"
               value={form.nextDownloadDate}
@@ -89,7 +89,7 @@ export default function EditTachoModal({ item, onClose, onUpdated }) {
           </div>
 
           <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '1.2rem' }} disabled={loading}>
-            <Save size={18} /> {loading ? 'Se actualizează...' : 'Salvează Modificările'}
+            <Save size={18} /> {loading ? 'Actualizando...' : 'Guardar Cambios'}
           </button>
         </form>
       </div>

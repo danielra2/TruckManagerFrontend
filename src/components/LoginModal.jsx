@@ -17,7 +17,7 @@ export default function LoginModal({ onLoginSuccess }) {
       localStorage.setItem('tm_token', res.data.token);
       onLoginSuccess();
     } catch (err) {
-      setError(err.response?.data?.message || 'Parolă incorectă');
+      setError(err.response?.data?.message || 'Contraseña incorrecta');
     } finally {
       setLoading(false);
     }
@@ -36,9 +36,9 @@ export default function LoginModal({ onLoginSuccess }) {
         }}>
           <Lock size={28} color="#c48b52" />
         </div>
-        <h2 style={{ marginBottom: '0.4rem', color: '#edd8c4' }}>Autentificare</h2>
+        <h2 style={{ marginBottom: '0.4rem', color: '#edd8c4' }}>Autenticación</h2>
         <p style={{ color: '#c4b5a5', fontSize: '0.88rem', marginBottom: '1.4rem' }}>
-          Introdu parola de acces pentru a gestiona flota.
+          Introduce la contraseña de acceso para gestionar la flota.
         </p>
 
         {error && <div style={{ color: '#e06c53', marginBottom: '1rem', fontSize: '0.85rem' }}>{error}</div>}
@@ -47,7 +47,7 @@ export default function LoginModal({ onLoginSuccess }) {
           <div className="form-group">
             <input
               type="password"
-              placeholder="Parola de acces..."
+              placeholder="Contraseña de acceso..."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -55,7 +55,7 @@ export default function LoginModal({ onLoginSuccess }) {
             />
           </div>
           <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '0.8rem' }} disabled={loading}>
-            {loading ? 'Se verifică...' : 'Deblochează'}
+            {loading ? 'Comprobando...' : 'Acceder'}
           </button>
         </form>
       </div>

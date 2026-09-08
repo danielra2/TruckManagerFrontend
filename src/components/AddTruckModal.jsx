@@ -7,24 +7,36 @@ export default function AddTruckModal({ onClose, onTruckAdded }) {
     licensePlate: '',
     make: '',
     model: '',
-    vgpExpiryDate: '',
-    itvExpiryDate: '',
-    limitVExpiryDate: '',
-    tGrafoExpiryDate: '',
-    seguroExpiryDate: '',
+    vgpCreationDate: '',
+    itvCreationDate: '',
+    limitVCreationDate: '',
+    tGrafoCreationDate: '',
+    seguroCreationDate: '',
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Funcție precisă pentru adăugarea lunilor
+  const addMonths = (dateStr, months) => {
+    if (!dateStr) return '';
+    const [y, m, d] = dateStr.split('-').map(Number);
+    const targetDate = new Date(y, m - 1 + months, 1);
+    const maxDays = new Date(targetDate.getFullYear(), targetDate.getMonth() + 1, 0).getDate();
+    const day = Math.min(d, maxDays);
+    const result = new Date(targetDate.getFullYear(), targetDate.getMonth(), day);
+    const resYear = result.getFullYear();
+    const resMonth = String(result.getMonth() + 1).padStart(2, '0');
+    const resDay = String(result.getDate()).padStart(2, '0');
+    return `${resYear}-${resMonth}-${resDay}`;
+  };
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const quickSetDate = (field, months) => {
-    const d = new Date();
-    d.setMonth(d.getMonth() + months);
-    const formatted = d.toISOString().split('T')[0];
-    setForm((prev) => ({ ...prev, [field]: formatted }));
+  const setToday = (field) => {
+    const today = new Date().toISOString().split('T')[0];
+    setForm((prev) => ({ ...prev, [field]: today }));
   };
 
   const handleSubmit = async (e) => {
@@ -32,12 +44,24 @@ export default function AddTruckModal({ onClose, onTruckAdded }) {
     setLoading(true);
     setError('');
 
+    // Se trimit către backend datele de expirare calculate automat pe baza tipului
+    const payload = {
+      licensePlate: form.licensePlate,
+      make: form.make,
+      model: form.model,
+      vgpExpiryDate: addMonths(form.vgpCreationDate, 6) || null,
+      itvExpiryDate: addMonths(form.itvCreationDate, 12) || null,
+      limitVExpiryDate: addMonths(form.limitVCreationDate, 12) || null,
+      tGrafoExpiryDate: addMonths(form.tGrafoCreationDate, 24) || null,
+      seguroExpiryDate: addMonths(form.seguroCreationDate, 12) || null,
+    };
+
     try {
-      await api.post('/trucks', form);
+      await api.post('/trucks', payload);
       onTruckAdded();
       onClose();
     } catch (err) {
-      setError(err.response?.data?.message || 'Eroare la adăugarea camionului.');
+      setError(err.response?.data?.message || 'Error al guardar el camión.');
     } finally {
       setLoading(false);
     }
@@ -46,21 +70,21 @@ export default function AddTruckModal({ onClose, onTruckAdded }) {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-          <h2 style={{ color: '#fde68a' }}>Adaugă Camion Nou</h2>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+          <h2 style={{ color: '#fde68a', fontSize: '1.3rem' }}>Añadir Nuevo Camión</h2>
           <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#c4b5a5', cursor: 'pointer' }}>
             <X size={24} />
           </button>
         </div>
 
-        {error && <div style={{ color: '#ff6b6b', marginBottom: '1rem', fontSize: '0.9rem' }}>{error}</div>}
+        {error && <div style={{ color: '#ff6b6b', marginBottom: '1rem', fontSize: '0.88rem' }}>{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Număr Înmatriculare</label>
+            <label>Matrícula</label>
             <input
               name="licensePlate"
-              placeholder="ex: CC 617 PX"
+              placeholder="ej: CC 617 PX"
               value={form.licensePlate}
               onChange={handleChange}
               required
@@ -69,23 +93,30 @@ export default function AddTruckModal({ onClose, onTruckAdded }) {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
             <div className="form-group">
-              <label>Marcă</label>
-              <input name="make" placeholder="ex: IVECO" value={form.make} onChange={handleChange} required />
+              <label>Marca</label>
+              <input name="make" placeholder="ej: IVECO" value={form.make} onChange={handleChange} required />
             </div>
             <div className="form-group">
-              <label>Model</label>
-              <input name="model" placeholder="ex: DAILY 55S17W" value={form.model} onChange={handleChange} required />
+              <label>Modelo</label>
+              <input name="model" placeholder="ej: DAILY 55S17W" value={form.model} onChange={handleChange} required />
             </div>
           </div>
 
-          {/* VGP (6 Luni) */}
+          {/* VGP (6 Meses) */}
           <div className="form-group">
-            <label>VGP - Grua (la 6 luni)</label>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <label>VGP - Grúa (Validez: 6 meses)</label>
+              {form.vgpCreationDate && (
+                <span style={{ fontSize: '0.78rem', color: '#34d399', fontWeight: 700 }}>
+                  Vence: {addMonths(form.vgpCreationDate, 6)}
+                </span>
+              )}
+            </div>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               <input
                 type="date"
-                name="vgpExpiryDate"
-                value={form.vgpExpiryDate}
+                name="vgpCreationDate"
+                value={form.vgpCreationDate}
                 onChange={handleChange}
                 style={{ flex: 1 }}
               />
@@ -93,21 +124,28 @@ export default function AddTruckModal({ onClose, onTruckAdded }) {
                 type="button"
                 className="btn"
                 style={{ background: '#382c25', color: '#f59e0b', padding: '0.5rem 0.8rem', fontSize: '0.8rem' }}
-                onClick={() => quickSetDate('vgpExpiryDate', 6)}
+                onClick={() => setToday('vgpCreationDate')}
               >
-                <CalendarPlus size={14} /> +6 Luni
+                <CalendarPlus size={14} /> Hoy
               </button>
             </div>
           </div>
 
-          {/* ITV (12 Luni) */}
+          {/* ITV (12 Meses) */}
           <div className="form-group">
-            <label>ITV - Inspecție Tehnică (la 12 luni)</label>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <label>ITV - Inspección Técnica (Validez: 12 meses)</label>
+              {form.itvCreationDate && (
+                <span style={{ fontSize: '0.78rem', color: '#34d399', fontWeight: 700 }}>
+                  Vence: {addMonths(form.itvCreationDate, 12)}
+                </span>
+              )}
+            </div>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               <input
                 type="date"
-                name="itvExpiryDate"
-                value={form.itvExpiryDate}
+                name="itvCreationDate"
+                value={form.itvCreationDate}
                 onChange={handleChange}
                 style={{ flex: 1 }}
               />
@@ -115,21 +153,28 @@ export default function AddTruckModal({ onClose, onTruckAdded }) {
                 type="button"
                 className="btn"
                 style={{ background: '#382c25', color: '#f59e0b', padding: '0.5rem 0.8rem', fontSize: '0.8rem' }}
-                onClick={() => quickSetDate('itvExpiryDate', 12)}
+                onClick={() => setToday('itvCreationDate')}
               >
-                <CalendarPlus size={14} /> +12 Luni
+                <CalendarPlus size={14} /> Hoy
               </button>
             </div>
           </div>
 
-          {/* LIMIT V (12 Luni) */}
+          {/* LIMIT V (12 Meses) */}
           <div className="form-group">
-            <label>LIMIT V - Limitator Viteză (la 12 luni)</label>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <label>LIMIT V - Limitador de Velocidad (Validez: 12 meses)</label>
+              {form.limitVCreationDate && (
+                <span style={{ fontSize: '0.78rem', color: '#34d399', fontWeight: 700 }}>
+                  Vence: {addMonths(form.limitVCreationDate, 12)}
+                </span>
+              )}
+            </div>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               <input
                 type="date"
-                name="limitVExpiryDate"
-                value={form.limitVExpiryDate}
+                name="limitVCreationDate"
+                value={form.limitVCreationDate}
                 onChange={handleChange}
                 style={{ flex: 1 }}
               />
@@ -137,21 +182,28 @@ export default function AddTruckModal({ onClose, onTruckAdded }) {
                 type="button"
                 className="btn"
                 style={{ background: '#382c25', color: '#f59e0b', padding: '0.5rem 0.8rem', fontSize: '0.8rem' }}
-                onClick={() => quickSetDate('limitVExpiryDate', 12)}
+                onClick={() => setToday('limitVCreationDate')}
               >
-                <CalendarPlus size={14} /> +12 Luni
+                <CalendarPlus size={14} /> Hoy
               </button>
             </div>
           </div>
 
-          {/* T GRAFO (24 Luni) */}
+          {/* TACÓGRAFO (24 Meses) */}
           <div className="form-group">
-            <label>T GRAFO - Tahograf (la 24 luni)</label>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <label>TACÓGRAFO - Revisión (Validez: 24 meses)</label>
+              {form.tGrafoCreationDate && (
+                <span style={{ fontSize: '0.78rem', color: '#34d399', fontWeight: 700 }}>
+                  Vence: {addMonths(form.tGrafoCreationDate, 24)}
+                </span>
+              )}
+            </div>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               <input
                 type="date"
-                name="tGrafoExpiryDate"
-                value={form.tGrafoExpiryDate}
+                name="tGrafoCreationDate"
+                value={form.tGrafoCreationDate}
                 onChange={handleChange}
                 style={{ flex: 1 }}
               />
@@ -159,21 +211,28 @@ export default function AddTruckModal({ onClose, onTruckAdded }) {
                 type="button"
                 className="btn"
                 style={{ background: '#382c25', color: '#f59e0b', padding: '0.5rem 0.8rem', fontSize: '0.8rem' }}
-                onClick={() => quickSetDate('tGrafoExpiryDate', 24)}
+                onClick={() => setToday('tGrafoCreationDate')}
               >
-                <CalendarPlus size={14} /> +24 Luni
+                <CalendarPlus size={14} /> Hoy
               </button>
             </div>
           </div>
 
-          {/* SEGURO (12 Luni) */}
+          {/* SEGURO (12 Meses) */}
           <div className="form-group">
-            <label>SEGURO - Asigurare (la 12 luni)</label>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <label>SEGURO - Póliza (Validez: 12 meses)</label>
+              {form.seguroCreationDate && (
+                <span style={{ fontSize: '0.78rem', color: '#34d399', fontWeight: 700 }}>
+                  Vence: {addMonths(form.seguroCreationDate, 12)}
+                </span>
+              )}
+            </div>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               <input
                 type="date"
-                name="seguroExpiryDate"
-                value={form.seguroExpiryDate}
+                name="seguroCreationDate"
+                value={form.seguroCreationDate}
                 onChange={handleChange}
                 style={{ flex: 1 }}
               />
@@ -181,9 +240,9 @@ export default function AddTruckModal({ onClose, onTruckAdded }) {
                 type="button"
                 className="btn"
                 style={{ background: '#382c25', color: '#f59e0b', padding: '0.5rem 0.8rem', fontSize: '0.8rem' }}
-                onClick={() => quickSetDate('seguroExpiryDate', 12)}
+                onClick={() => setToday('seguroCreationDate')}
               >
-                <CalendarPlus size={14} /> +12 Luni
+                <CalendarPlus size={14} /> Hoy
               </button>
             </div>
           </div>
@@ -194,7 +253,7 @@ export default function AddTruckModal({ onClose, onTruckAdded }) {
             style={{ width: '100%', justifyContent: 'center', marginTop: '1.2rem' }}
             disabled={loading}
           >
-            <Plus size={18} /> {loading ? 'Se salvează...' : 'Adaugă Camion'}
+            <Plus size={18} /> {loading ? 'Guardando...' : 'Añadir Camión'}
           </button>
         </form>
       </div>

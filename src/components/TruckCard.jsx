@@ -7,16 +7,16 @@ export default function TruckCard({ truck, onEdit, onDelete }) {
       return (
         <div className="doc-item">
           <span className="doc-name">{title}</span>
-          <span className="badge" style={{ background: '#382c25', color: '#9e8a78' }}>Nesetat</span>
+          <span className="badge" style={{ background: '#382c25', color: '#9e8a78' }}>Sin asignar</span>
         </div>
       );
     }
 
-    let daysText = `${doc.daysRemaining}z`;
+    let daysText = `${doc.daysRemaining}d`;
     if (doc.daysRemaining < 0) {
-      daysText = `Expirat (${Math.abs(doc.daysRemaining)}z)`;
+      daysText = `Vencido (${Math.abs(doc.daysRemaining)}d)`;
     } else if (doc.daysRemaining === 0) {
-      daysText = 'Expiră azi!';
+      daysText = '¡Vence hoy!';
     }
 
     return (
@@ -24,7 +24,7 @@ export default function TruckCard({ truck, onEdit, onDelete }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
           <span className="doc-name">{title}</span>
           <span style={{ fontSize: '0.74rem', color: '#d6c5b3', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-            <Calendar size={12} color="#f59e0b" /> {doc.expiryDate}
+            <Calendar size={12} color="#f59e0b" /> Vence: {doc.expiryDate}
           </span>
         </div>
         <span className={`badge badge-${doc.status}`}>{daysText}</span>
@@ -44,7 +44,7 @@ export default function TruckCard({ truck, onEdit, onDelete }) {
             className="btn"
             style={{ padding: '0.45rem', background: 'rgba(245, 158, 11, 0.18)', color: '#f59e0b' }}
             onClick={() => onEdit(truck)}
-            title="Editează"
+            title="Editar"
           >
             <Edit3 size={15} />
           </button>
@@ -52,7 +52,7 @@ export default function TruckCard({ truck, onEdit, onDelete }) {
             className="btn btn-danger"
             style={{ padding: '0.45rem' }}
             onClick={() => onDelete(truck.id)}
-            title="Șterge"
+            title="Eliminar"
           >
             <Trash2 size={15} />
           </button>
@@ -60,11 +60,11 @@ export default function TruckCard({ truck, onEdit, onDelete }) {
       </div>
 
       <div className="doc-list">
-        {renderDoc('VGP (Grua)', truck.vgp)}
-        {renderDoc('ITV', truck.itv)}
-        {renderDoc('LIMIT V', truck.limitV)}
-        {renderDoc('T GRAFO', truck.tGrafo)}
-        {renderDoc('SEGURO', truck.seguro)}
+        {renderDoc('VGP (Grúa - 6M)', truck.vgp)}
+        {renderDoc('ITV (12M)', truck.itv)}
+        {renderDoc('LIMIT V (12M)', truck.limitV)}
+        {renderDoc('TACÓGRAFO (24M)', truck.tGrafo)}
+        {renderDoc('SEGURO (12M)', truck.seguro)}
       </div>
     </div>
   );
